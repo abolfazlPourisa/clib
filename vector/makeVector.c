@@ -2,23 +2,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-vector *makeVector(int length, void *first, ...) {
-    vector *vec = (vector *)malloc(sizeof(vector));
-    
-    vec->length = length;
-    vec->arr = (void *)malloc(sizeof(void *) * length);
-    
-    va_list args;
-    va_start(args, first);
+vector *makeVector(int cap) {
+    vector *vec = malloc(sizeof(vector));
 
-    void *ptr = first;
-
-    for (int i = 0; i < length; i++) {
-        vec->arr[i] = ptr;
-        ptr = va_arg(args, void*);
-    }
-    
-    va_end(args);
+    vec->length = 0;
+    vec->arr = malloc(sizeof(void *) * cap);
+    vec->cap = cap;
 
     return vec;
 }
